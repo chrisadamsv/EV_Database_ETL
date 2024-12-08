@@ -23,6 +23,10 @@ while True:
     try:
         # Create a cursor object
         cursor = conn.cursor()
+        select_table_names = """SELECT table_name FROM ev_db.INFORMATION_SCHEMA.TABLES WHERE table_schema = 'public';"""
+        cursor.execute(select_table_names)
+        tables = cursor.fetchall()
+        print(f'Available Tables: {tables}')
         # Write your SQL queries
         input_query = input("Enter a SQL query to download table as CSV: ")
         # Execute the query
