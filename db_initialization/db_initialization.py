@@ -49,7 +49,7 @@ income_df = income_df.drop(columns=['County & State'])
 income_df['PerCapita Income'] = income_df['PerCapita Income'].astype(int)
 income_df['PerCapita Income'] = (income_df['PerCapita Income']/100).astype(float)
 # Save new csv 
-income_df.to_csv('Resources/income_data.csv',index=False)
+income_df.to_csv('Output_CSVs/income_data.csv',index=False)
 
 #############################################################
 # Import EV CSV data into python
@@ -89,7 +89,7 @@ vehicle_location_df = new_main_df[['Postal Code','FIPS code','County','City','St
 # Get unique values by ridding postal code duplicates
 location_df = vehicle_location_df.drop_duplicates(subset='Postal Code').sort_values(by=['Postal Code'], ascending=False)
 # Save as csv
-location_df.to_csv("CSVs/location.csv", index=False)
+location_df.to_csv("Output_CSVs/location.csv", index=False)
 
 #############################################################
 # Create vehicle info Dataframe
@@ -99,8 +99,8 @@ location_df.to_csv("CSVs/location.csv", index=False)
 vehicle_types_df = main_df[['Model Year','Make','Model','Electric Vehicle Type']].sort_values(by=['Model Year','Make','Model'], ascending=True)
 vehicle_types_df = vehicle_types_df.drop_duplicates()
 # Save as csv and reupload to reset index
-vehicle_types_df.to_csv("CSVs/vehicle_types.csv", index=False)
-vehicle_types_df = pd.read_csv("CSVs/vehicle_types.csv")
+vehicle_types_df.to_csv("Output_CSVs/vehicle_types.csv", index=False)
+vehicle_types_df = pd.read_csv("Output_CSVs/vehicle_types.csv")
 
 # Re-convert Model Year column to a string
 vehicle_types_df['Model Year'] = vehicle_types_df['Model Year'].astype(str)
@@ -114,7 +114,7 @@ vehicle_types_df['Vehicle Type ID'] = vehicle_types_df['Vehicle Type ID'].apply(
 vehicle_types_df = vehicle_types_df[['Vehicle Type ID'] + [col for col in vehicle_types_df.columns if col != 'Vehicle Type ID']]
 
 # Resave as CSV
-vehicle_types_df.to_csv("CSVs/vehicle_types.csv", index=False)
+vehicle_types_df.to_csv("Output_CSVs/vehicle_types.csv", index=False)
 
 #############################################################
 # Create CAFV Eligibility Dataframe
@@ -123,9 +123,9 @@ vehicle_types_df.to_csv("CSVs/vehicle_types.csv", index=False)
 # Create CAFV Eligibility table
 cafv_df = main_df[['Clean Alternative Fuel Vehicle (CAFV) Eligibility']].drop_duplicates()
 # Save as CSV to reset index
-cafv_df.to_csv("CSVs/csfv_eligibility.csv", index=False)
+cafv_df.to_csv("Output_CSVs/csfv_eligibility.csv", index=False)
 # Reopen CSV
-cafv_df = pd.read_csv("CSVs/csfv_eligibility.csv")
+cafv_df = pd.read_csv("Output_CSVs/csfv_eligibility.csv")
 # Create new column with index for ID
 cafv_df['CAFV Eligibility ID'] = cafv_df.index+1
 # Add 'cafv' to the front of the id numbers
@@ -133,7 +133,7 @@ cafv_df['CAFV Eligibility ID'] = cafv_df['CAFV Eligibility ID'].apply(lambda x: 
 # Move ID First
 cafv_df = cafv_df[['CAFV Eligibility ID','Clean Alternative Fuel Vehicle (CAFV) Eligibility']]
 # Resave as CSV
-cafv_df.to_csv("CSVs/csfv_eligibility.csv", index=False)
+cafv_df.to_csv("Output_CSVs/csfv_eligibility.csv", index=False)
 
 #############################################################
 # Create Utility Companies Dataframe
@@ -142,9 +142,9 @@ cafv_df.to_csv("CSVs/csfv_eligibility.csv", index=False)
 # Create a new dataframe with the utility company name
 utilities_df = main_df[['Electric Utility']].drop_duplicates()
 # Save as CSV to reset index
-utilities_df.to_csv("CSVs/utilities.csv", index=False)
+utilities_df.to_csv("Output_CSVs/utilities.csv", index=False)
 # Reopen CSV
-utilities_df = pd.read_csv("CSVs/utilities.csv")
+utilities_df = pd.read_csv("Output_CSVs/utilities.csv")
 # Create new column with index for ID
 utilities_df['Electric Company ID'] = utilities_df.index+1
 # Add 'cafv' to the front of the id numbers
@@ -153,7 +153,7 @@ utilities_df['Electric Company ID'] = utilities_df['Electric Company ID'].apply(
 # Move ID First
 utilities_df = utilities_df[['Electric Company ID','Electric Utility']]
 # Resave as CSV
-utilities_df.to_csv("CSVs/utilities.csv", index=False)
+utilities_df.to_csv("Output_CSVs/utilities.csv", index=False)
 
 #############################################################
 # Create main vehicle Dataframe
@@ -165,7 +165,7 @@ vehicle_df = pd.merge(vehicle_df,cafv_df, on='Clean Alternative Fuel Vehicle (CA
 vehicle_df = pd.merge(vehicle_df,utilities_df, on='Electric Utility')
 vehicle_df = vehicle_df[['DOL Vehicle ID','Vehicle Type ID','Postal Code','FIPS code','Electric Company ID','CAFV Eligibility ID','VIN (1-10)','Electric Range','Base MSRP']]
 # Save as csv
-vehicle_df.to_csv("CSVs/vehicle.csv", index=False)
+vehicle_df.to_csv("Output_CSVs/vehicle.csv", index=False)
 
 #############################################################
 # Convert above dataframes to lists
