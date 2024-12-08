@@ -1,6 +1,13 @@
 # Dream-Team-Project-3
 Group 3's project 3
 
+ERD for Electric Vehicle Database:<br>
+<br>
+<img width="2034" alt="EV_DB_ERD" src="https://github.com/user-attachments/assets/87a57361-cd88-4577-9d99-a8020b1254e5"><br>
+<br>
+<br>
+<br>
+<br>
 Resources: <br>
 Electric Vehicle Population Data for Washington State <br>
 https://catalog.data.gov/dataset/electric-vehicle-population-data <br>
