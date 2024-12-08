@@ -234,7 +234,7 @@ except psycopg2.Error as e:
     print("Error connecting to the database:")
     print(e)
 else:
-    print("Connection established successfully")
+    print("Connection re-established successfully")
 
 # Create cursor
 cur = conn.cursor() 
