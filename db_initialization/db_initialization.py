@@ -69,7 +69,8 @@ main_df['Postal Code'] = main_df['Postal Code'].astype(int).astype(str)
 main_df['Legislative District'] = main_df['Legislative District'].astype(str).str.replace(r'\.0$', '', regex=True)
 # Replace 'nan' in Legislative District with empty value
 main_df['Legislative District'] = main_df['Legislative District'].str.replace('nan','')
-
+# Replace the first 6 charcters in the VIN column with 'xxxxxx' to help protect privacy
+main_df['VIN (1-10)'] = main_df['VIN (1-10)'].str.replace(r'^.{6}', 'xxxxxx', regex=True)
 # Extract lat and long from vehicle location column
 main_df['Longitude'] = main_df['Vehicle Location'].str.extract(r'(-\d+\.\d+)', expand=False).astype(float)
 main_df['Latitude'] = main_df['Vehicle Location'].str.extract(r' (\d+\.\d+)', expand=False).astype(float)
@@ -316,7 +317,8 @@ create_vehicles_query = """
         cafv_id VARCHAR(5)
         CHECK (cafv_id LIKE 'cafv%'),
         FOREIGN KEY (cafv_id) REFERENCES cafv_eligibility (cafv_id),
-        vin VARCHAR(10) NOT NULL,
+        vin VARCHAR(10) NOT NULL
+        CHECK (vin LIKE 'xxxxxx%'),
         electric_range DECIMAL(10,1),
         base_msrp DECIMAL(10,2)
     );
@@ -359,46 +361,58 @@ cur.execute(create_vehicles_query)
 print("Vehicles table created or recreated successfully!")
 
 # Use a for loop to insert each row of data into location table
+print('Loading CAFV Eligibility data into table...')
+
 for row in cafv_list:
     sql = "INSERT INTO cafv_eligibility (cafv_id,cafv_eligibility) VALUES (%s, %s)"
     cur.execute(sql, row)
  
-print('CAFV Elgibility Data added successfully!')
+print('CAFV Elgibility data added successfully!')
 
 # Use a for loop to insert each row of data into location table
+print('Loading Utility Company data into table...')
+
 for row in utilities_list:
     sql = "INSERT INTO utility_companies (utility_company_id,utility_company_name) VALUES (%s, %s)"
     cur.execute(sql, row)
  
-print('Utility Company Data added successfully!')
+print('Utility Company data added successfully!')
 
 # Use a for loop to insert each row of data into location table
+print('Loading County Income data into table...')
+
 for row in income_list:
     sql = "INSERT INTO county_income (fips_code,income_year,percapita_income,county,state) VALUES (%s, %s, %s, %s, %s)"
     cur.execute(sql, row)
  
-print('County income Data added successfully!')
+print('County Income data added successfully!')
 
 # Use a for loop to insert each row of data into location table
+print('Loading Location Info data into table...')
+
 for row in location_list:
     sql = "INSERT INTO location_info (postal_code,fips_code,county,city,state,legislative_district,latitude,longitude,census_tract_2020) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cur.execute(sql, row)
  
-print('Location Info Data added successfully!')
+print('Location Info data added successfully!')
 
 # Use a for loop to insert each row of data into vehicle info table
+print('Loading Vehicle Types data into table...')
+
 for row in vehicle_types_list:
     sql = "INSERT INTO vehicle_types (vehicle_type_id,model_year,make,model,ev_type) VALUES (%s, %s, %s, %s, %s)"
     cur.execute(sql, row)
  
-print('Vehicle types Data added successfully!')
+print('Vehicle Types data added successfully!')
 
 # Use a for loop to insert each row of data into main vehicle table
+print('Loading Vehicle data into table...')
+
 for row in vehicles_list:
     sql = "INSERT INTO vehicles (dol_vehicle_id,vehicle_type_id,postal_code,fips_code,utility_company_id,cafv_id,vin,electric_range,base_msrp) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cur.execute(sql, row)
  
-print('Vehicles Data added successfully!')
+print('Vehicle data added successfully!')
 
 # Commit the changes to the database
 conn.commit()
@@ -406,3 +420,5 @@ conn.commit()
 # Close the cursor and the connection
 cur.close()
 conn.close()
+
+print('Database initalization is complete. Please check ev_db PostGRES to ensure data loaded correctly.')
