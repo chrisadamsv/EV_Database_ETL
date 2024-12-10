@@ -3,7 +3,7 @@ Group 3's project 3
 
 ERD for Electric Vehicle Database:<br>
 <br>
-<img width="2034" alt="EV_DB_ERD" src="https://github.com/user-attachments/assets/87a57361-cd88-4577-9d99-a8020b1254e5"><br>
+<img width="2485" alt="EV_DB_ERD" src="https://github.com/user-attachments/assets/49897be0-a7bb-4376-90ae-3ab921340df6">
 <br>
 <br>
 <br>
