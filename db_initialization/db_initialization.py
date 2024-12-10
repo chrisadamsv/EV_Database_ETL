@@ -48,8 +48,6 @@ income_df = income_df.drop(columns=['County & State'])
 # Convert PerCapita Income to Float
 income_df['PerCapita Income'] = income_df['PerCapita Income'].astype(int)
 income_df['PerCapita Income'] = (income_df['PerCapita Income']/100).astype(float)
-# Save new csv 
-income_df.to_csv('Output_CSVs/income_data.csv',index=False)
 
 #############################################################
 # Import EV CSV data into python
@@ -157,6 +155,15 @@ utilities_df = utilities_df[['Electric Company ID','Electric Utility']]
 utilities_df.to_csv("Output_CSVs/utilities.csv", index=False)
 
 #############################################################
+# Re-create county income Dataframe
+#############################################################
+
+# Remake income_df without county and state fields
+income_df = income_df[['FIPS code','Income Year','PerCapita Income']]
+# Save new csv 
+income_df.to_csv('Output_CSVs/income_data.csv',index=False)
+
+#############################################################
 # Create main vehicle Dataframe
 #############################################################
 
@@ -184,6 +191,7 @@ vehicles_list = vehicle_df.values.tolist()
 #############################################################
 
 # Connect to PostGres to add database
+print('-'*60)
 try:
     # Connect to the database
     conn = psycopg2.connect(
@@ -207,6 +215,7 @@ cur = conn.cursor()
 sql = '''CREATE DATABASE ev_db;'''
 
 # Create database and commit
+print('-'*60)
 try:
     cur.execute(sql)
     print("Database successfully created!")
@@ -221,7 +230,7 @@ conn.close()
 #############################################################
 # Create new tables and add data in PostGRES
 #############################################################
-
+print('-'*60)
 try:
     # Connect to the database
     conn = psycopg2.connect(
@@ -269,9 +278,7 @@ create_income_table_query = '''
     CREATE TABLE county_income (
         fips_code VARCHAR(5) PRIMARY KEY,
         income_year VARCHAR(4) NOT NULL,
-        percapita_income DECIMAL(10,2),
-        county VARCHAR NOT NULL,
-        state VARCHAR(2)
+        percapita_income DECIMAL(10,2)
     );    
     '''
 
@@ -324,6 +331,7 @@ create_vehicles_query = """
     );
     """
 
+print('-'*60)
 # Execute Drop table query 
 cur.execute(drop_cafv_table_query)
 # Execute the CREATE TABLE query
@@ -361,6 +369,7 @@ cur.execute(create_vehicles_query)
 print("Vehicles table created or recreated successfully!")
 
 # Use a for loop to insert each row of data into location table
+print('-'*60)
 print('Loading CAFV Eligibility data into table...')
 
 for row in cafv_list:
@@ -370,6 +379,7 @@ for row in cafv_list:
 print('CAFV Elgibility data added successfully!')
 
 # Use a for loop to insert each row of data into location table
+print('-'*60)
 print('Loading Utility Company data into table...')
 
 for row in utilities_list:
@@ -379,15 +389,17 @@ for row in utilities_list:
 print('Utility Company data added successfully!')
 
 # Use a for loop to insert each row of data into location table
+print('-'*60)
 print('Loading County Income data into table...')
 
 for row in income_list:
-    sql = "INSERT INTO county_income (fips_code,income_year,percapita_income,county,state) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO county_income (fips_code,income_year,percapita_income) VALUES (%s, %s, %s)"
     cur.execute(sql, row)
  
 print('County Income data added successfully!')
 
 # Use a for loop to insert each row of data into location table
+print('-'*60)
 print('Loading Location Info data into table...')
 
 for row in location_list:
@@ -397,6 +409,7 @@ for row in location_list:
 print('Location Info data added successfully!')
 
 # Use a for loop to insert each row of data into vehicle info table
+print('-'*60)
 print('Loading Vehicle Types data into table...')
 
 for row in vehicle_types_list:
@@ -406,6 +419,7 @@ for row in vehicle_types_list:
 print('Vehicle Types data added successfully!')
 
 # Use a for loop to insert each row of data into main vehicle table
+print('-'*60)
 print('Loading Vehicle data into table...')
 
 for row in vehicles_list:
@@ -420,5 +434,5 @@ conn.commit()
 # Close the cursor and the connection
 cur.close()
 conn.close()
-
-print('Database initalization is complete. Please check ev_db PostGRES to ensure data loaded correctly.')
+print('-'*60)
+print('Database initalization is complete. Please check ev_db database in PostGRES to ensure data loaded correctly.')
