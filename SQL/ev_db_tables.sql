@@ -15,7 +15,7 @@ CREATE TABLE utility_companies (
 CREATE TABLE county_income (
     fips_code VARCHAR(5) PRIMARY KEY,
     income_year VARCHAR(4) NOT NULL,
-    percapita_income DECIMAL(10,2),
+    percapita_income DECIMAL(10,2)
 );    
 
 
