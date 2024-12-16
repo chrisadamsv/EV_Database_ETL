@@ -2,21 +2,70 @@
 Authors: Chris Adams, Brandon Johnson, and Anna Yayloyan
 <br>
 <br>
+
 ## Project Overview
 The goal of this project is to extract data on registered electric vehicles in the U.S. State of Washington as well as income data in U.S counties to analyze who is buying what kind of electric vehicle and where in Washington state. This data and project could be used in various applications, such as government agencies and vehicle companies. The grain of the primary dataset is individual electric vehicles registered in Washington state and the secondary dataset is income per county for a selected year.
-<br>
 <br>
 ### Ethical Considerations
 Data can contain personal identifying information about individuals that could potentially result in harm being done to them and their privacy. In this poltical climate, electric vehicles are particularly politicized. To avoid this data being used against indivdual vehicle owners in any way, we blocked out most of the VIN number on the vehicles. The location info is too broad to be concenred with, so we only focused on the VIN.
 <br>
 <br>
-### ERD for Electric Vehicle Database
+
+## Database Overview
+To store our data, we're using PostgreSQL to establish a database called 'ev_db.' <br>
+<br>
+ERD for Electric Vehicle Database: <br>
 <img width="2485" alt="EV_DB_ERD" src="https://github.com/user-attachments/assets/49897be0-a7bb-4376-90ae-3ab921340df6">
 <br>
 <br>
+The data will be divided into the following six tables: <br>
+<img width="188" alt="Screenshot 2024-12-16 at 13 47 02" src="https://github.com/user-attachments/assets/3e170e77-3c6d-448b-9155-01aa0c4e0983" />
 <br>
 <br>
-### Resources
+Here are examples of the data from the six tables using SQL statements: <br>
+<img width="205" alt="Screenshot 2024-12-16 at 14 15 06" src="https://github.com/user-attachments/assets/76a1d5b9-1aa0-4ba4-bd05-69ba99d2c7cd" />
+<br>
+<img width="1325" alt="Screenshot 2024-12-16 at 14 14 28" src="https://github.com/user-attachments/assets/b4f803d6-bf86-4b6d-8bf2-0c07359c43b7" />
+<br>
+<br>
+<img width="255" alt="Screenshot 2024-12-16 at 14 18 51" src="https://github.com/user-attachments/assets/4fa36d5a-310f-4735-9944-65de5b9ed44a" />
+<br>
+<img width="931" alt="Screenshot 2024-12-16 at 14 18 02" src="https://github.com/user-attachments/assets/70b59198-86be-47c0-9d87-652ce1c0ef39" />
+<br>
+<br>
+<img width="281" alt="Screenshot 2024-12-16 at 14 21 25" src="https://github.com/user-attachments/assets/9ba4ede3-c936-4142-ad1f-6b3005803620" />
+<br>
+<img width="574" alt="Screenshot 2024-12-16 at 14 20 59" src="https://github.com/user-attachments/assets/cf9f1b3d-3d16-4915-929c-8b03c3446c20" />
+<br>
+<br>
+<img width="251" alt="Screenshot 2024-12-16 at 14 23 35" src="https://github.com/user-attachments/assets/a74bab33-da06-4d2c-81e3-d86414aa075b" />
+<br>
+<img width="1276" alt="Screenshot 2024-12-16 at 14 24 02" src="https://github.com/user-attachments/assets/74e9a3e3-e6e5-42d9-a50b-6a572a3d2de4" />
+<br>
+<br>
+<img width="252" alt="Screenshot 2024-12-16 at 14 26 14" src="https://github.com/user-attachments/assets/dbd2ce93-1903-4769-8826-3cfbd926dc68" />
+<br>
+<img width="488" alt="Screenshot 2024-12-16 at 14 26 41" src="https://github.com/user-attachments/assets/b4025bb8-a681-425a-a7c1-70296d6837c8" />
+<br>
+<br>
+<img width="273" alt="Screenshot 2024-12-16 at 14 27 59" src="https://github.com/user-attachments/assets/7b80cef9-85de-40a8-af1f-475a63b0bf50" />
+<br>
+<img width="563" alt="Screenshot 2024-12-16 at 14 28 22" src="https://github.com/user-attachments/assets/73c94679-5c8f-44aa-a99c-a12a62822f11" />
+
+
+## Repository Overview
+### DB_init
+
+- db_init.py <br>
+This python file initiates the 'ev_db' database in PostgreSQL using 'psycopg2.' It extracts income data by county for the year the user selects, then combines that with an Electric Vehicle csv that contains data for every registered electric vehicle in Washington state. It then will divide this dataframe into six seperate dataframes and then imported into six seperate tables in our 'ev_db' PostgreSQL database. <br>
+The tables are: <br>
+<img width="188" alt="Screenshot 2024-12-16 at 13 47 02" src="https://github.com/user-attachments/assets/44755e7b-2900-4a69-85d0-e1b67b9a551f" /> <br>
+
+
+ - db_init_notebook.ipynb <br>
+   This jupyter notebook file breaks down 
+
+## Ressoures
 Electric Vehicle Population Data for Washington State <br>
 https://catalog.data.gov/dataset/electric-vehicle-population-data <br>
 <br>
