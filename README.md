@@ -158,3 +158,15 @@ https://catalog.data.gov/dataset/electric-vehicle-population-data <br>
 <br>
 Bureau of Economic Analysis - PerCapita Income by County for 2022 <br>
 https://apps.bea.gov/api/data?&UserID={INSERT_YOUR_CODE_HERE}&method=GetData&datasetname=Regional&TableName=CAINC1&LineCode=1&Year=2022&GeoFips=COUNTY&ResultFormat=json <br>
+<br>
+
+## References to code
+
+This website references the code used to connect to the PostgreSQL database: <br>
+https://www.geeksforgeeks.org/introduction-to-psycopg2-module-in-python/ <br>
+<img width="517" alt="Screenshot 2024-12-16 at 18 09 03" src="https://github.com/user-attachments/assets/387fd599-25ea-4098-860f-11dafb09b3c3" /> <br>
+
+
+
+
+
