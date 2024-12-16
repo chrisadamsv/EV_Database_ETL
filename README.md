@@ -123,6 +123,7 @@ It results in the following chart: <br>
 <br>
 <br>
 The next example uses the following query to extarct all vehicles where the 'electric_range' is above 0: <br>
+<br>
 SELECT vehicles.vehicle_type_id, electric_range, model_year, make, model <br>
 FROM vehicles <br>
 JOIN vehicle_types <br>
