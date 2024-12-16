@@ -58,7 +58,6 @@ else:
 # Create a 'while True:' statement to allow user to run script again until they quit
 while True:
 
-
     # Create a 'try' statement to attempt to reconnect to database
     try:
 

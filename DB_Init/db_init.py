@@ -36,15 +36,20 @@ while True:
 
         # Create a 'while True:' statement to collect the year variable in the appropriate format
         while True:
+
             # Create a variable to hold the current year as an integer
             current_year = int(datetime.now().year)
+            
             # Create a variable to store the user input for the year to be extracted from the API
             print('')
             year_parameter = input(f"Enter a year between 2010 and {current_year} to pull for county income from the BEA API (type 'quit' to terminate program): ")
+            
             # Use an 'if' statement to ensure the input is a 4 character digit 
             if year_parameter.isdigit() and len(year_parameter) == 4:
+               
                 # Convert user input variable to integer if meets format requirements
                 year_parameter_int = int(year_parameter)
+                
                 # Use another 'if' statement to ensure the input year is between 2010 and the curent year. If so, initialize script
                 if 2010 <= year_parameter_int < current_year:
 
@@ -411,40 +416,26 @@ while True:
                         );
                         """
 
-                    # Execute Drop table query 
+                    # Execute Drop table queries
                     cur.execute(drop_cafv_table_query)
-                    # Execute the CREATE TABLE query
+                    cur.execute(drop_utilities_query)
+                    cur.execute(drop_income_table_query)
+                    cur.execute(drop_location_info_query)
+                    cur.execute(drop_vehicle_types_query)
+                    cur.execute(drop_vehicles_query)
+
+                    # Execute the CREATE TABLE queries
                     cur.execute(create_cafv_table_query)
                     print('-'*60)
                     print("CAFV table created or recreated successfully!")
-
-                    # Execute Drop table query 
-                    cur.execute(drop_utilities_query)
-                    # Execute the CREATE TABLE query
                     cur.execute(create_utilities_table_query)
                     print("Utility Company table created or recreated successfully!")
-
-                    # Execute Drop table query 
-                    cur.execute(drop_income_table_query)
-                    # Execute the CREATE TABLE query
                     cur.execute(create_income_table_query)
                     print("County Income table created or recreated successfully!")
-
-                    # Execute Drop table query 
-                    cur.execute(drop_location_info_query)
-                    # Execute the CREATE TABLE query
                     cur.execute(create_location_info_query)
                     print("Location info table created or recreated successfully!")
-
-                    # Execute Drop table query 
-                    cur.execute(drop_vehicle_types_query)
-                    # Execute the CREATE TABLE query
                     cur.execute(create_vehicle_types_query)
                     print("Vehicle types table created or recreated successfully!")
-
-                    # Execute Drop table query 
-                    cur.execute(drop_vehicles_query)
-                    # Execute the CREATE TABLE query
                     cur.execute(create_vehicles_query)
                     print("Vehicles table created or recreated successfully!")
 
