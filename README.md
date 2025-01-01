@@ -56,7 +56,12 @@ Here are examples of the data from the six tables using SQL statements: <br>
 
 ## Repository Overview
 ### DB_init directory
-
+#### For this program to work, you must store two new files in the 'DB_Init' directory: one called 'api_keys.py' and another called 'postgres_info.py'<br>
+The 'api_keys.py' file will store a variable called 'bea_key' that will hold your personal API key for the Bureau of Economic Analysis which can be created here: <br>
+https://apps.bea.gov/api/signup/<br>
+<br>
+The 'postgres_info.file' will contain a 'user' field and a 'password' field to store the username and password for your PostgreSQL server.<br>
+<br>
 - db_init.py <br>
 This python file initiates the 'ev_db' database in PostgreSQL using 'psycopg2.' It extracts income data by county for the year the user selects, then combines that with an Electric Vehicle csv that contains data for every registered electric vehicle in Washington state. It then will divide this dataframe into six seperate dataframes and import it into six seperate tables in our 'ev_db' PostgreSQL database. <br>
 Executing the program looks like this: <br>
@@ -79,7 +84,9 @@ This directory holds the "Electric Vehicle Population Data" csv that is used as 
 <br>
 
 ### Input_App directory
-
+#### For this program to work, you must store a python new file in the 'Input_App' directory called 'postgres_info.py'<br>
+The 'postgres_info.file' will contain a 'user' field and a 'password' field to store the username and password for your PostgreSQL server.<br>
+<br>
 - input_app.py <br>
 This python program extracts data from our 'ev_db' PostgreSQL database by asking the user to input their own custom SQL statements. It then will ask the user to make a name for csv that the data is being extracted to. The program can be looped through several times if the user chooses to run it again. <br>
 <br>
@@ -105,7 +112,9 @@ This directory stores the CSVs from the input apps above. <br>
 <br>
 
 ### Extraction directory
-
+#### For this program to work, you must store a python new file in the 'Input_App' directory called 'postgres_info.py'<br>
+The 'postgres_info.file' will contain a 'user' field and a 'password' field to store the username and password for your PostgreSQL server.<br>
+<br>
 - db_bokeh_charts.ipynb <br>
 This notebook gives examples of data being extracted from the database and then being maniplated to make into interative charts with the bokeh library. The first example of extarcted data uses the following SQL query to pull all registered CYBERTRUCKs: <br>
 <br>
